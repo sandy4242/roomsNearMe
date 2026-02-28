@@ -4,19 +4,19 @@ import Image from "next/image";
 const locations = [
   {
     name: "Gangtok",
-    image: "/locations/gangtok.jpg",
+    image: "/hari.jpg",
   },
   {
     name: "Tadong",
-    image: "/locations/tadong.jpg",
+    image: "/jyoti.jpg",
   },
   {
     name: "Rangpo",
-    image: "/locations/rangpo.jpg",
+    image: "/neeraj.jpg",
   },
   {
     name: "Namchi",
-    image: "/locations/namchi.jpg",
+    image: "/unma.jpg",
   },
 ];
 

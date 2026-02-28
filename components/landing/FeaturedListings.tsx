@@ -7,21 +7,21 @@ const featured = [
     title: "Modern PG near SMIT",
     price: "6,500 / month",
     location: "Tadong, Gangtok",
-    image: "/featured1.jpg",
+    image: "/frames.jpg",
   },
   {
     id: "2",
     title: "2BHK Apartment with Mountain View",
     price: "18,000 / month",
     location: "Gangtok",
-    image: "/featured2.jpg",
+    image: "/yayaq.jpg",
   },
   {
     id: "3",
     title: "Residential Land Plot",
     price: "25 Lakhs",
     location: "Namchi",
-    image: "/featured3.jpg",
+    image: "/manuel.jpg",
   },
 ];
 
