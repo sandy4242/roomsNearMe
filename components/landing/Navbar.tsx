@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<unknown>(null);
+
+  const supabase = createClient();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,10 +16,17 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
+
+    // Get current user
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+    });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const linkStyle = `relative after:absolute after:left-0 after:bottom-[-6px] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full hover:opacity-70`;
+  const linkStyle =
+    "relative after:absolute after:left-0 after:bottom-[-6px] after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full hover:opacity-70";
 
   return (
     <nav
@@ -58,8 +69,13 @@ export default function Navbar() {
             Browse
           </Link>
 
+          {/* Smart List Property */}
           <Link
-            href="/list-property"
+            href={
+              user
+                ? "/list-property"
+                : "/login?redirect=/list-property"
+            }
             className={`${linkStyle} ${
               scrolled ? "text-gray-700" : "text-white"
             }`}
@@ -67,17 +83,33 @@ export default function Navbar() {
             List Property
           </Link>
 
-          {/* Elegant Login Button */}
-          <Link
-            href="/login"
-            className={`px-6 py-2 border transition duration-300 ${
-              scrolled
-                ? "border-black text-black hover:bg-black hover:text-white"
-                : "border-white text-white hover:bg-white hover:text-black"
-            }`}
-          >
-            Login
-          </Link>
+          {/* Login / Logout */}
+          {user ? (
+            <button
+              onClick={async () => {
+                await supabase.auth.signOut();
+                window.location.reload();
+              }}
+              className={`px-6 py-2 border transition duration-300 ${
+                scrolled
+                  ? "border-black text-black hover:bg-black hover:text-white"
+                  : "border-white text-white hover:bg-white hover:text-black"
+              }`}
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className={`px-6 py-2 border transition duration-300 ${
+                scrolled
+                  ? "border-black text-black hover:bg-black hover:text-white"
+                  : "border-white text-white hover:bg-white hover:text-black"
+              }`}
+            >
+              Login
+            </Link>
+          )}
 
         </div>
       </div>

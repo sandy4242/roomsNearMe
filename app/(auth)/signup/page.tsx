@@ -117,17 +117,6 @@ export default function SignupPage() {
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-600">
-              OTP
-            </label>
-            <input
-              type="password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-green-500 outline-none text-gray-700    "
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
 
           {/* Signup Button */}
           <button
