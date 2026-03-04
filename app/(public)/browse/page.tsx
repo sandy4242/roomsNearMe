@@ -43,7 +43,7 @@ export default function BrowsePage() {
         baths: p.bathrooms,
         images: p.property_images?.length
           ? p.property_images.map((img: any) => img.image_url)
-          : ["/property-placeholder.jpg"],
+          : ["/ronaldo.jpg"],
       }));
       setProperties(formatted);
       setLoading(false);
