@@ -7,7 +7,7 @@ export default function CTASection() {
 
         {/* Small Label */}
         <span className="text-sm uppercase tracking-widest text-gray-400">
-          List With Roomly
+          List With<span className="text-red-600"> 4Diwar</span>
         </span>
 
         {/* Headline */}

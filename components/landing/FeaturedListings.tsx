@@ -39,7 +39,7 @@ export default function FeaturedListings() {
             </span>
 
             <h2 className="text-4xl md:text-5xl font-semibold mt-6 leading-tight text-gray-700">
-              Exceptional Spaces in Sikkim
+              Exceptional <span className="text-red-600">Space </span>in Sikkim
             </h2>
           </div>
 

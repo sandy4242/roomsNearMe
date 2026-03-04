@@ -12,7 +12,7 @@ export default function CategorySection() {
           </span>
 
           <h2 className="text-4xl md:text-5xl font-semibold mt-6 leading-tight text-gray-800">
-            Curated Spaces for Every Lifestyle
+            Curated <span className="text-red-600">Spaces </span>for Every Lifestyle
           </h2>
 
           <p className="text-gray-600 mt-6 max-w-2xl">

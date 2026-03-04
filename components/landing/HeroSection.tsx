@@ -7,11 +7,11 @@ export default function HeroSection() {
 
       {/* Background */}
       <Image
-        src="/kiran_hero_bg.jpg"
+        src="/landingdesign.png"
         alt="Luxury Property"
         fill
         priority
-        className="object-cover"
+        className="object-cover blur-sm "
       />
 
       {/* Gradient Overlay */}
@@ -22,12 +22,12 @@ export default function HeroSection() {
 
         <div className="max-w-4xl">
 
-          <h1 className="text-white text-5xl md:text-7xl font-semibold leading-tight tracking-tight mb-8">
-            Find Your Perfect Space in Sikkim.
+          <h1 className="text-white text-4xl md:text-7xl font-semibold leading-tight tracking-tight mb-8">
+          <span className="text-red-600">Find Your Perfect</span> Space.
           </h1>
 
           <p className="text-gray-300 text-lg md:text-xl mb-12 max-w-2xl">
-            Discover curated rooms, PGs, and premium properties —
+            Discover curated rooms, PGs, and commercial spaces in Sikkim - all
             verified and directly from owners.
           </p>
 
