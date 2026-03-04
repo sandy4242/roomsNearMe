@@ -12,7 +12,7 @@ export default function StepCategory({ formData, setFormData }: any) {
     <div className="max-w-3xl">
 
       <h1 className="text-4xl font-display font-semibold mb-4 text-gray-900">
-        Property Category
+        <span className="text-red-600">Property</span> Category
       </h1>
 
       <p className="text-gray-600 text-lg mb-12">

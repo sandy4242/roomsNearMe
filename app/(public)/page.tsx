@@ -7,6 +7,7 @@ import FAQSection from "@/components/landing/FAQSection";
 import WhySection from "@/components/landing/WhySection";
 import Footer from "@/components/landing/Footer";
 import Reveal from "@/components/ui/Reveal";
+import Navbar from "@/components/landing/Navbar";
 
 export default function Home() {
   return (

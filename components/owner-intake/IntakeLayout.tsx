@@ -5,6 +5,8 @@ import Sidebar from "./Sidebar";
 export default function IntakeLayout({
   step,
   setStep,
+  handleNext,
+  handleSubmit,
   children,
 }: any) {
   return (
@@ -24,7 +26,7 @@ export default function IntakeLayout({
 
         {/* Bottom Nav */}
         <div className="fixed bottom-0 left-0 md:left-72 right-0 bg-white border-t border-gray-200 px-10 py-5 flex justify-between">
-          
+
           <button
             onClick={() => step > 1 && setStep(step - 1)}
             disabled={step === 1}
@@ -34,11 +36,12 @@ export default function IntakeLayout({
           </button>
 
           <button
-            onClick={() => step < 4 && setStep(step + 1)}
-            className="px-8 py-3 rounded-lg bg-black text-white font-semibold hover:bg-gray-800 transition"
-          >
-            Continue
-          </button>
+  type="button"
+  onClick={step === 4 ? handleSubmit : handleNext}
+  className="px-8 py-3 rounded-lg bg-black text-white font-semibold hover:bg-gray-800 transition"
+>
+  {step === 4 ? "Submit" : "Continue"}
+</button>
 
         </div>
       </div>

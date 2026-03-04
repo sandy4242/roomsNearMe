@@ -88,7 +88,7 @@ export default function Navbar() {
                 await supabase.auth.signOut();
                 window.location.reload();
               }}
-              className="px-6 py-2 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-red-600 hover:bg-white/20 transition-all"
+              className="px-6 py-2 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-black hover:bg-white/20 transition-all"
             >
               Logout
             </button>

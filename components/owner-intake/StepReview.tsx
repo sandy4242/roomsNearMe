@@ -5,7 +5,9 @@ export default function StepReview({ formData }: any) {
     <div className="max-w-3xl">
 
       <h1 className="text-4xl font-display font-semibold mb-4 text-gray-900">
-        Review Your Details
+        <span className="underline decoration-red-600 decoration-4 underline-offset-5">
+             Review Your Details
+        </span>
       </h1>
 
       <p className="text-gray-600 text-lg mb-12">

@@ -52,7 +52,7 @@ export default function SearchBar() {
       {/* Search Button */}
       <button
   onClick={handleSearch}
-  className="px-6 py-2 rounded-xl bg-white/10 backdrop-blur-lg border border-black text-black hover:bg-white/20 transition-all"
+  className="px-10 py-3 rounded-lg bg-white/10 backdrop-blur-lg border border-black text-black hover:bg-white/20 transition-all"
             >
               Search
 </button>

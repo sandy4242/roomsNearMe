@@ -4,7 +4,7 @@ export default function Sidebar({ step }: any) {
   return (
     <div className="space-y-10">
       <h2 className="text-2xl font-display font-semibold text-gray-900">
-        Partner With Roomly
+        Partner With <span className="text-red-600">4Diwar</span> 
       </h2>
 
       <div className="space-y-6">
