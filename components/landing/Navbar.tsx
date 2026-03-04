@@ -10,6 +10,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<unknown>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(true);
 
   const pathname = usePathname();
   const supabase = createClient();
@@ -21,12 +22,18 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
 
-    supabase.auth.getUser().then(({ data }) => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
       setUser(data.user);
-    });
+      setLoadingUser(false);
+    };
+
+    getUser();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (loadingUser) return null;
 
   const navLink = (href: string, label: string) => {
     const isActive = pathname === href;
@@ -54,27 +61,25 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
-
         {/* Logo */}
-<Link href="/" className="flex items-center">
-  <Image
-    src="/logooo.png"
-    alt="4Diwar Logo"
-    width={45}
-    height={15}
-    priority
-    className="object-contain"
-  />
-</Link>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logooo.png"
+            alt="4Diwar Logo"
+            width={45}
+            height={15}
+            priority
+            className="object-contain"
+          />
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-12 text-sm tracking-wide">
-
           {navLink("/", "Home")}
           {navLink("/browse", "Browse")}
           {navLink(
             user ? "/list-property" : "/login?redirect=/list-property",
-            "List Property"
+            "List Property",
           )}
 
           {user ? (
@@ -121,69 +126,65 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-<div
-  className={`md:hidden transition-all duration-500 ease-in-out ${
-    isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-  } overflow-hidden`}
->
-  <div className="bg-white/20 backdrop-blur-2xl border-t border-white/30 shadow-2xl px-8 py-8">
-
-    <div className="flex flex-col space-y-6 text-black text-base font-medium">
-
-      <Link
-        href="/"
-        onClick={() => setIsOpen(false)}
-        className="relative w-fit transition duration-300 
+      <div
+        className={`md:hidden transition-all duration-500 ease-in-out ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        } overflow-hidden`}
+      >
+        <div className="bg-white/20 backdrop-blur-2xl border-t border-white/30 shadow-2xl px-8 py-8">
+          <div className="flex flex-col space-y-6 text-black text-base font-medium">
+            <Link
+              href="/"
+              onClick={() => setIsOpen(false)}
+              className="relative w-fit transition duration-300 
         after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-red-600 
         after:w-0 hover:after:w-full after:transition-all"
-      >
-        Home
-      </Link>
+            >
+              Home
+            </Link>
 
-      <Link
-        href="/browse"
-        onClick={() => setIsOpen(false)}
-        className="relative w-fit transition duration-300 
+            <Link
+              href="/browse"
+              onClick={() => setIsOpen(false)}
+              className="relative w-fit transition duration-300 
         after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-red-600 
         after:w-0 hover:after:w-full after:transition-all"
-      >
-        Browse
-      </Link>
+            >
+              Browse
+            </Link>
 
-      <Link
-        href={user ? "/list-property" : "/login?redirect=/list-property"}
-        onClick={() => setIsOpen(false)}
-        className="relative w-fit transition duration-300 
+            <Link
+              href={user ? "/list-property" : "/login?redirect=/list-property"}
+              onClick={() => setIsOpen(false)}
+              className="relative w-fit transition duration-300 
         after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-red-600 
         after:w-0 hover:after:w-full after:transition-all"
-      >
-        List Property
-      </Link>
+            >
+              List Property
+            </Link>
 
-      {user ? (
-        <button
-          onClick={async () => {
-            await supabase.auth.signOut();
-            window.location.reload();
-          }}
-          className="text-left text-red-600"
-        >
-          Logout
-        </button>
-      ) : (
-        <Link
-          href="/login"
-          onClick={() => setIsOpen(false)}
-          className="text-red-600"
-        >
-          Login
-        </Link>
-      )}
-
-    </div>
-
-  </div>
-</div>
+            {user ? (
+              <button
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  window.location.reload();
+                }}
+                className="text-left text-red-600"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsOpen(false)}
+                className="text-red-600"
+              >
+                Login
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
 }
