@@ -49,7 +49,7 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute bottom-20 left-10 text-white z-10">
           <h2 className="text-4xl font-bold mb-4">
-            Find your sweet home
+            Find your sweet <span className="text-red-600">home</span>
           </h2>
           <p className="text-lg text-gray-200">
             Schedule visits in just a few clicks
@@ -63,7 +63,7 @@ export default function LoginPage() {
 
           <div className="mb-10">
             <h1 className="text-2xl font-bold text-gray-800">
-              Roomly
+              <span className="text-red-600">4Diwar</span>
             </h1>
           </div>
 

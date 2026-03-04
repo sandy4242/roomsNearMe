@@ -130,19 +130,19 @@ const handleSubmit = () => {
           <div className="bg-white p-10 rounded-2xl text-center w-[420px] shadow-xl">
 
             <img
-              src="/success.gif"
+              src="/Done.gif"
               width={150}
               height={150}
               alt="success"
               className="w-32 mx-auto mb-6"
             />
 
-            <h2 className="text-2xl font-semibold mb-2">
+            {/* <h2 className="text-2xl text-black font-semibold mb-2">
               Successfully Submitted
-            </h2>
+            </h2> */}
 
-            <p className="text-gray-600 mb-6">
-              Your property was submitted successfully.
+            <p className="text-2xl text-black mb-6">
+              Your <span className="text-red-600">Property</span> was submitted successfully.
             </p>
 
             <button

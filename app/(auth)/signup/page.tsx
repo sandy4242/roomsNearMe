@@ -52,7 +52,7 @@ export default function SignupPage() {
         {/* Text */}
         <div className="absolute bottom-20 left-10 text-white z-10">
           <h2 className="text-4xl font-bold mb-4">
-            Start your property journey
+            Start your <span className="text-red-600">Property</span> journey
           </h2>
           <p className="text-lg text-gray-200">
             List or find your perfect space in Sikkim
@@ -67,7 +67,7 @@ export default function SignupPage() {
           {/* Logo */}
           <div className="mb-10">
             <h1 className="text-2xl font-bold text-gray-800">
-              Roomly
+              <span className="text-red-600">4Diwar</span>
             </h1>
           </div>
 
@@ -145,7 +145,7 @@ export default function SignupPage() {
           {/* Login Link */}
           <p className="text-sm text-center mt-6 text-gray-500">
             Already have an account?{" "}
-            <Link href="/login" className="text-green-600 hover:underline">
+            <Link href="/login" className="text-black hover:underline">
               Login
             </Link>
           </p>
