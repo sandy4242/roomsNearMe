@@ -25,23 +25,23 @@ export default function CategorySection() {
         <div className="grid md:grid-cols-3 gap-14">
 
           <CategoryCard
-            title="Hostels & PGs"
+            title="PGs & Hostels"
             subtitle="Comfortable & Verified"
-            image="/pg.png"
+            image="/hostel-pg.jpg"
             href="/browse?type=pg"
           />
 
           <CategoryCard
             title="Rooms"
             subtitle="Modern Living Spaces"
-            image="/org.jpg"
+            image="/rooms.svg"
             href="/browse?type=property"
           />
 
           <CategoryCard
             title="Commercial Spaces"
             subtitle="Prime Business Locations"
-            image="/ronaldo.jpg"
+            image="/tolett.png"
             href="/browse?type=land"
           />
 

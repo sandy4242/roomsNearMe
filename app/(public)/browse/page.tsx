@@ -3,13 +3,21 @@ import BrowsePropertyCard from "@/components/landing/BrowsePropertyCard";
 import Searchbar from "@/components/landing/SearchBar";
 import Footer from "@/components/landing/Footer";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function BrowsePage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
   const [properties, setProperties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterType, setFilterType] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
+
+  // Read from URL: ?location=Majitar&category=Residential
+  const locationQuery = searchParams.get("location") || "";
+  const categoryQuery = searchParams.get("category") || "All";
+
   useEffect(() => {
     const fetchProperties = async () => {
       const supabase = createClient();
@@ -20,19 +28,19 @@ export default function BrowsePage() {
         )
         .eq("is_active", true)
         .eq("is_verified", true);
+
       if (error) {
         console.error("Error fetching properties:", error);
         setLoading(false);
         return;
       }
+
       const propertyTypeMap: any = {
         commercial: "Commercial",
         pg: "Residential",
         room: "Residential",
-        flat: "Residential",
-        house: "Residential",
-        land: "Residential",
       };
+
       const formatted = (data || []).map((p: any) => ({
         id: p.id,
         title: p.title,
@@ -45,87 +53,98 @@ export default function BrowsePage() {
           ? p.property_images.map((img: any) => img.image_url)
           : ["/ronaldo.jpg"],
       }));
+
       setProperties(formatted);
       setLoading(false);
     };
+
     fetchProperties();
   }, []);
+
+  // Filter based on URL params
   const filteredProperties = properties.filter(
     (prop) =>
-      (filterType === "All" || prop.type === filterType) &&
-      prop.location.toLowerCase().includes(searchQuery.toLowerCase()),
+      prop.location.toLowerCase().includes(locationQuery.toLowerCase()) &&
+      (categoryQuery === "All" || prop.type === categoryQuery)
   );
+
+  // Update URL for category chips
+  const updateCategory = (newCategory: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (newCategory === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", newCategory);
+    }
+    router.push(`?${params.toString()}`);
+  };
+
   return (
     <>
-      {" "}
-      {/* Page Header */}{" "}
+      {/* Page Header */}
       <section className="pt-36 pb-10 bg-white">
-        {" "}
         <div className="max-w-7xl mx-auto px-6 text-center">
-          {" "}
           <h1 className="text-4xl font-display font-semibold text-gray-900 mb-3">
-            {" "}
-            Browse <span className="text-red-600">Properties</span>{" "}
-          </h1>{" "}
+            Browse <span className="text-red-600">Properties</span>
+          </h1>
           <p className="text-gray-500 text-lg">
-            {" "}
-            Discover verified listings across Siliguri{" "}
-          </p>{" "}
-        </div>{" "}
-      </section>{" "}
-      {/* Search Section */}{" "}
+            Discover verified listings across Siliguri
+          </p>
+        </div>
+      </section>
+
+      {/* Search Section */}
       <section className="pb-16 bg-white">
-        {" "}
         <div className="max-w-5xl mx-auto px-6">
-          {" "}
-          <Searchbar
-            onSearch={(query) => setSearchQuery(query)}
-            onFilterChange={(type) => setFilterType(type)}
-            searchQuery={searchQuery}
-            filterType={filterType}
-          />{" "}
-        </div>{" "}
-      </section>{" "}
-      {/* Category Filters */}{" "}
+          <Searchbar />
+        </div>
+      </section>
+
+      {/* Category Filters */}
       <section className="pb-6 bg-white">
-        {" "}
         <div className="max-w-7xl mx-auto px-6 flex gap-4 overflow-x-auto">
-          {" "}
           {["All", "Residential", "Commercial"].map((type) => (
             <button
               key={type}
-              onClick={() => setFilterType(type)}
-              className={`px-5 py-2 rounded-full border text-sm transition whitespace-nowrap ${filterType === type ? "bg-black text-white border-black" : "border-gray-300 text-gray-700 hover:border-black"}`}
+              onClick={() => updateCategory(type)}
+              className={`px-5 py-2 rounded-full border text-sm transition whitespace-nowrap ${
+                categoryQuery === type
+                  ? "bg-black text-white border-black"
+                  : "border-gray-300 text-gray-700 hover:border-black"
+              }`}
             >
-              {" "}
-              {type}{" "}
+              {type}
             </button>
-          ))}{" "}
-        </div>{" "}
-      </section>{" "}
-      {/* Property Grid */}{" "}
+          ))}
+        </div>
+      </section>
+
+      {/* Property Grid */}
       <section className="pb-24 bg-gray-50">
-        {" "}
         <div className="max-w-7xl mx-auto px-6">
-          {" "}
-          {/* Property Count */}{" "}
+          {/* Property Count + Active Filters */}
           <div className="flex justify-between items-center mb-10">
-            {" "}
             <p className="text-gray-600 text-sm">
-              {" "}
-              {filteredProperties.length} properties available{" "}
-            </p>{" "}
-          </div>{" "}
+              {filteredProperties.length} properties available
+              {locationQuery && ` in "${locationQuery}"`}
+              {categoryQuery !== "All" && ` • ${categoryQuery}`}
+            </p>
+            {(locationQuery || categoryQuery !== "All") && (
+              <button
+                onClick={() => router.push("/browse")}
+                className="text-sm text-red-600 hover:underline"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
+
           {loading ? (
             <div className="text-center py-32">
-              {" "}
-              <p className="text-gray-400 text-lg">
-                Loading properties...
-              </p>{" "}
+              <p className="text-gray-400 text-lg">Loading properties...</p>
             </div>
           ) : filteredProperties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-              {" "}
               {filteredProperties.map((property) => (
                 <BrowsePropertyCard
                   key={property.id}
@@ -138,24 +157,22 @@ export default function BrowsePage() {
                   beds={property.beds}
                   baths={property.baths}
                 />
-              ))}{" "}
+              ))}
             </div>
           ) : (
             <div className="text-center py-32">
-              {" "}
               <p className="text-2xl text-gray-400 mb-4 font-display">
-                {" "}
-                No properties found{" "}
-              </p>{" "}
+                No properties found
+              </p>
               <p className="text-gray-500">
-                {" "}
-                Try adjusting your search or filters.{" "}
-              </p>{" "}
+                Try adjusting your search or filters.
+              </p>
             </div>
-          )}{" "}
-        </div>{" "}
-      </section>{" "}
-      <Footer />{" "}
+          )}
+        </div>
+      </section>
+
+      <Footer />
     </>
   );
 }
