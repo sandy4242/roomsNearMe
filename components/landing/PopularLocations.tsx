@@ -32,7 +32,7 @@ export default function PopularLocations() {
           </span>
 
           <h2 className="text-4xl md:text-5xl font-semibold mt-6 leading-tight text-gray-700">
-            Discover Sikkim’s Finest Areas
+            Discover Sikkim’s Finest <span className="text-red-600">Areas</span>
           </h2>
 
           <p className="text-gray-600 mt-6 max-w-2xl">

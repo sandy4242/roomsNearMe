@@ -7,7 +7,7 @@ const tabs = [
     title: "Verified Listings",
     heading: "Trust Begins with Transparency.",
     description:
-      "Every property listed on Roomly undergoes a careful review process to ensure authenticity and accuracy.",
+      "Every property listed on 4Diwar undergoes a careful review process to ensure authenticity and accuracy.",
   },
   {
     title: "Direct Owner Contact",
@@ -33,7 +33,7 @@ export default function WhySection() {
         {/* LEFT SIDE (Dynamic Content) */}
         <div>
           <span className="text-sm uppercase tracking-widest text-gray-500">
-            About Roomly
+            About <span className="text-red-600">4Diwar</span>
           </span>
 
           <h2 className="text-4xl md:text-5xl font-display mt-6 leading-tight transition-all duration-500 text-gray-700">

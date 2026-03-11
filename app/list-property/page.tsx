@@ -1,5 +1,5 @@
 "use client";
-
+import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
 import IntakeLayout from "@/components/owner-intake/IntakeLayout";
 import StepOwnership from "@/components/owner-intake/StepOwnership";
@@ -9,6 +9,7 @@ import StepReview from "@/components/owner-intake/StepReview";
 import { useRouter } from "next/navigation";
 
 export default function ListPropertyPage() {
+const supabase = createClient();
 
   const router = useRouter();
 
@@ -97,12 +98,33 @@ export default function ListPropertyPage() {
 
   return Object.keys(newErrors).length === 0;
 };
-const handleSubmit = () => {
-    console.log("Form submitted:", formData);
+const handleSubmit = async () => {
+  const supabase = createClient();
 
-    // show popup
-    setShowSuccess(true);
-  };
+  const { data, error } = await supabase
+    .from("list_properties")
+    .insert([
+      {
+        owner_type: formData.owner_type,
+        full_name: formData.full_name,
+        phone: formData.phone,
+        whatsapp: formData.whatsapp,
+        property_category: formData.property_category,
+      },
+    ])
+    .select();
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error) {
+    console.error("Insert failed:", error.message);
+    alert(error.message);
+    return;
+  }
+
+  setShowSuccess(true);
+};
 
   const closePopup = () => {
     setShowSuccess(false);

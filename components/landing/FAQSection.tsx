@@ -4,19 +4,19 @@ import { useState } from "react";
 
 const faqs = [
   {
-    question: "How do I search for properties on Roomly?",
+    question: "How do I search for properties on 4Diwar?",
     answer:
       "Use the search bar on the homepage to filter properties by location, type, and price range.",
   },
   {
     question: "Are the listings verified?",
     answer:
-      "Yes. Every property listed on Roomly is reviewed and verified before being published.",
+      "Yes. Every property listed on 4Diwar is reviewed and verified before being published.",
   },
   {
     question: "Is there any brokerage fee?",
     answer:
-      "No. Roomly connects you directly with property owners with zero brokerage charges.",
+      "No. 4Diwar connects you directly with property owners with zero brokerage charges.",
   },
   {
     question: "Can I schedule a property visit?",
